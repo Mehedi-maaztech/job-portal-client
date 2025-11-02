@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
-
+import logo from '../assets/logo.png';
 const Navbar = () => {
     const { user, logoutUser } = useContext(AuthContext);
     const links = <>
-        <li><a>Item 1</a></li>
-        <li><a>Item 3</a></li>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/'>Find Jobs</Link></li>
+        <li><Link to='/'>Employers</Link></li>
+        <li><Link to='/'>Blogs</Link></li>
     </>
     return (
         <div className="navbar bg-base-100">
@@ -17,11 +19,13 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-52 p-2 shadow">
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <Link to='/' className="normal-case text-xl w-40">
+                    <img src={logo} alt="Logo" className="mr-2 object-cover"/>
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

@@ -3,11 +3,13 @@ import registerLottidata from '../assets/Login Leady.json';
 import { toast } from 'react-toastify';
 import { useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const SignInUser = () => {
-    const {signInUser, setUser} = useContext(AuthContext);
-    const navigate = useNavigate();     
+    const {signInUser, setUser, soccialLogin} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state || '/';     
     const handleSignIn = e => {
         e.preventDefault();
         const form = e.target;
@@ -26,6 +28,21 @@ const SignInUser = () => {
                 const loggeduser = result.user;
                 console.log(loggeduser);
                 form.reset();
+                setUser(loggeduser);
+                navigate(from, {replace: true});
+                toast("Logged in successful")
+            })
+            .catch(error => {
+                console.log(error);
+                toast(error.message);
+            });
+    }
+
+    const handleGoogleSignIn = () => {
+        soccialLogin()
+            .then(result => {   
+                const loggeduser = result.user;
+                console.log(loggeduser);
                 setUser(loggeduser);
                 navigate('/');
                 toast("Logged in successful")
@@ -56,6 +73,9 @@ const SignInUser = () => {
 
                             <p>Don't have an account? <Link to='/auth/register' className='font-bold text-purple-900'>Register</Link></p>
                         </form>
+                        <div>
+                            <button className="btn btn-outline btn-secondary w-full mt-4" onClick={handleGoogleSignIn}>Sign in with Google</button>
+                        </div>
                     </div>
                 </div>
             </div>
