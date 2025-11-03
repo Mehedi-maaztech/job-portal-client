@@ -1,11 +1,12 @@
 import Lottie from 'lottie-react';
 import registerLottidata from '../assets/Login Leady.json';
 import { toast } from 'react-toastify';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import { Link, useNavigate } from 'react-router';
+import { Eye, EyeOff } from "lucide-react"
 const Register = () => {
-
+     const [showPassword, setShowPassword] = useState(false);
     const { createUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const handleRegister = e => {
@@ -27,7 +28,7 @@ const Register = () => {
                 const loggeduser = result.user;
                 console.log(loggeduser);
                 form.reset();
-                navigate('/signin');
+                navigate('/auth/signin');
                 toast("User registered successfully!");
             })
             .catch(error => {
@@ -52,7 +53,27 @@ const Register = () => {
                             <label className="label">Email</label>
                             <input type="email" className="input" placeholder="Email" name='email' />
                             <label className="label">Password</label>
-                            <input type="password" className="input" placeholder="Password" name='password' />
+                            <div className="relative w-full">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    className="input input-bordered w-full pr-10"
+                                    placeholder="Password"
+                                    name="password"
+                                />
+
+                                {/* Toggle Button */}
+                                <button
+                                    type="button"
+                                    className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                                    onClick={() => setShowPassword((prev) => !prev)}
+                                >
+                                    {showPassword ? (
+                                        <EyeOff className="w-5 h-5" />
+                                    ) : (
+                                        <Eye className="w-5 h-5" />
+                                    )}
+                                </button>
+                            </div>
                             <div><a className="link link-hover">Forgot password?</a></div>
                             <button className="btn btn-neutral mt-4">Login</button>
                         </form>

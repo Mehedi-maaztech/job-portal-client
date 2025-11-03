@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MapPin, DollarSign, Clock, Calendar, Briefcase, Zap, User, Mail } from 'lucide-react';
-import { useLoaderData } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 
 const formatSalary = (min, max, currency) => {
     const formatter = new Intl.NumberFormat('en-US');
@@ -25,7 +25,7 @@ const StatItem = ({ icon: Icon, title, value }) => (
 const JobDetails = () => {
 
     const job = useLoaderData();
-    const { title, company, location, company_logo, description, responsibilities, requirements, salaryRange, jobType, category, applicationDeadline, hr_email, hr_name, status } = job;
+    const {_id, title, company, location, company_logo, description, responsibilities, requirements, salaryRange, jobType, category, applicationDeadline, hr_email, hr_name, status } = job;
 
     const [isSaved, setIsSaved] = useState(false);
     const [isApplied, setIsApplied] = useState(false);
@@ -159,10 +159,12 @@ const JobDetails = () => {
                         <button className="btn btn-outline btn-primary w-full sm:w-auto" onClick={handleSave}>
                             {isSaved ? 'Unsave Job' : 'Save Job'}
                         </button>
-                        <button className="btn btn-primary w-full sm:w-auto" onClick={handleApply}>
-                            {/* Action Buttons */}
-                            {isApplied ? 'Application Sent' : 'Apply Now'}
-                        </button>
+                        <Link to={`/jobApply/${_id}`}>
+                            <button className="btn btn-primary w-full sm:w-auto" onClick={handleApply}>
+                                {/* Action Buttons */}
+                                {isApplied ? 'Application Sent' : 'Apply Now'}
+                            </button>
+                        </Link>
                         <button className="btn btn-warning w-full sm:w-auto" onClick={handleCancel} disabled={!isApplied}>
                             Cancel Application
                         </button>
