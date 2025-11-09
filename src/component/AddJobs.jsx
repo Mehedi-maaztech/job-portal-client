@@ -1,4 +1,10 @@
+import axios from "axios";
+import { useContext } from "react";
+import { toast } from "react-toastify";
+import { AuthContext } from "../provider/AuthProvider";
+
 const AddJobs = () => {
+    const {user} = useContext(AuthContext);
     const labelClasses = "block text-sm font-medium mb-1 text-gray-700";
     const inputClasses = "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500";
     const selectClasses = "w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500";
@@ -36,6 +42,16 @@ const AddJobs = () => {
 
         console.log('Job Data Submitted:', jobData);
         // You can send jobData to your backend server here
+        axios.post('http://localhost:5000/jobs', jobData)
+            .then(response => {
+                console.log('Job added successfully:', response.data);
+                toast('Job added successfully');
+                e.target.reset();
+            })
+            .catch(error => {
+                console.error('Error adding job:', error);
+                toast('Error adding job');
+            });
 
     };
     return (
@@ -111,6 +127,9 @@ const AddJobs = () => {
                                     >
                                         <option value="" disabled>Pick a category</option>
                                         <option value="Engineering">Engineering</option>
+                                        <option value="Web Development">Web Development</option>
+                                        <option value="Software Development">Software Development</option>
+                                        <option value="Design">Design</option>
                                         <option value="Business">Business</option>
                                         <option value="Teaching">Teaching</option>
                                         <option value="Design">Design</option>
@@ -227,6 +246,8 @@ const AddJobs = () => {
                                         className={inputClasses}
                                         placeholder="e.g., hr@techsolutions.com"
                                         name="hr_email"
+                                        defaultValue={user.email}
+                                        readOnly
                                         required
                                     />
                                 </div>

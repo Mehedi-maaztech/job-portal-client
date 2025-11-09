@@ -13,7 +13,7 @@ const HotJobs = () => {
     console.log(hotJobs);
     return (
         <div>
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-4">
                 {
                     hotJobs.map(job => <HotJobCard key={job._id} job={job}></HotJobCard>)
                 }

@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { MapPin, DollarSign, Clock, Calendar, Briefcase, Zap, User, Mail } from 'lucide-react';
 import { Link, useLoaderData } from 'react-router';
 
-const formatSalary = (min, max, currency) => {
-    const formatter = new Intl.NumberFormat('en-US');
-    const minFmt = formatter.format(min);
-    const maxFmt = formatter.format(max);
-    const currencyUpper = currency.toUpperCase();
-    return `${minFmt} - ${maxFmt} ${currencyUpper} / Month`;
-};
+// const formatSalary = (min, max, currency) => {
+//     const formatter = new Intl.NumberFormat('en-US');
+//     const minFmt = formatter.format(min);
+//     const maxFmt = formatter.format(max);
+//     const currencyUpper = currency;
+//     return `${minFmt} - ${maxFmt} ${currencyUpper} / Month`;
+// };
 
 // Component for a single stat item
 // eslint-disable-next-line no-unused-vars
@@ -25,7 +25,7 @@ const StatItem = ({ icon: Icon, title, value }) => (
 const JobDetails = () => {
 
     const job = useLoaderData();
-    const {_id, title, company, location, company_logo, description, responsibilities, requirements, salaryRange, jobType, category, applicationDeadline, hr_email, hr_name, status } = job;
+    const {_id, title, company, location, company_logo, description, responsibilities, requirements, jobType, category, applicationDeadline, hr_email, hr_name, status, salaryRange } = job;
 
     const [isSaved, setIsSaved] = useState(false);
     const [isApplied, setIsApplied] = useState(false);
@@ -76,7 +76,7 @@ const JobDetails = () => {
                         <StatItem
                             icon={DollarSign}
                             title="Salary Range"
-                            value={formatSalary(salaryRange.min, salaryRange.max, salaryRange.currency)}
+                            value={`${salaryRange.min} - ${salaryRange.max} ${salaryRange.currency}`}
                         />
                         <StatItem
                             icon={Clock}

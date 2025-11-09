@@ -7,8 +7,8 @@ const Navbar = () => {
     const links = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to={`/myApplications/${user?.email}`}>My Applications</Link></li>
-        <li><Link to='/'>Employers</Link></li>
-        <li><Link to='/'>Blogs</Link></li>
+        <li><Link to='/addJobs'>Add JObs</Link></li>
+        <li><Link to={`/myPostedJobs/${user?.email}`}>My Posted JObs</Link></li>
     </>
     return (
         <div className="navbar bg-base-100">
