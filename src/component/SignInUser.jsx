@@ -4,12 +4,15 @@ import { toast } from 'react-toastify';
 import { useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router';
+import axios from 'axios';
 
 const SignInUser = () => {
-    const {signInUser, setUser, soccialLogin} = useContext(AuthContext);
+    const { signInUser, setUser, soccialLogin } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state || '/';     
+    const from = location.state || '/';
+    console.log(from);
+
     const handleSignIn = e => {
         e.preventDefault();
         const form = e.target;
@@ -27,9 +30,21 @@ const SignInUser = () => {
             .then(result => {
                 const loggeduser = result.user;
                 console.log(loggeduser);
+
+                axios.post('http://localhost:5000/jwt', {
+                    email: loggeduser.email,
+                    name: loggeduser.displayName,
+                    role: 'user',
+                },
+                {
+                    withCredentials: true
+                }
+                ).then(res => console.log(res.data))
+
+            //    Asdfgh!23
                 form.reset();
                 setUser(loggeduser);
-                navigate(from, {replace: true});
+                // navigate(from, {replace: true});
                 toast("Logged in successful")
             })
             .catch(error => {
@@ -40,7 +55,7 @@ const SignInUser = () => {
 
     const handleGoogleSignIn = () => {
         soccialLogin()
-            .then(result => {   
+            .then(result => {
                 const loggeduser = result.user;
                 console.log(loggeduser);
                 setUser(loggeduser);
