@@ -6,8 +6,14 @@ import { toast } from 'react-toastify';
 const MyApplication = () => {
     const myapplications = useLoaderData();
     const [newApplications, setNewApplications] = useState(myapplications);
-    // const { applicantEmail, companyLogo, githubLink, jobCompany, jobId, jobTitle, portfolioLink, resumeLink, _id } = myapplications;
     console.log(myapplications);
+
+    /**
+     * if we load data with axios instead of loader data we have to send creadentail as { withCredentails : true}
+     * 
+     * in fetch it we have to send credentail in this format {credentials: 'include'}
+     *  
+     * */
 
     const handleDelete = (_id) => {
 
