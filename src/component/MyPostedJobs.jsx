@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const MyPostedJobs = () => {
     const myPostedJobs = useLoaderData();
     const [newJobs, setNewJobs] = useState(myPostedJobs);
-    console.log(newJobs);
+    // console.log(newJobs);
 
     const handleDelete = (_id) => {
 

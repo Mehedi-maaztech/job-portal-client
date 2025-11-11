@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import HotJobCard from './HotJobCard';
+import axios from 'axios';
 
 const HotJobs = () => {
     const [hotJobs, setHotJobs] = useState([]);
-
     useEffect(() => {
-        fetch('http://localhost:5000/jobs')
-            .then(res => res.json())
-            .then(data => setHotJobs(data))
-            .catch(error => console.error('Error fetching hot jobs:', error));
+        axios.get('http://localhost:5000/jobs', {withCredentials: true})
+        .then(res => setHotJobs(res.data))
+        .catch(err => console.error(err));
+
+        // fetch('http://localhost:5000/jobs',)
+        //     .then(res => res.json())
+        //     .then(data => setHotJobs(data))
+        //     .catch(error => console.error('Error fetching hot jobs:', error));
     }, []);
-    console.log(hotJobs);
+    // console.log(hotJobs);
     return (
         <div>
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-4">

@@ -17,7 +17,6 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <HomeLayouts></HomeLayouts>,
-        errorElement: <div>This is error page</div>,
         children: [
             {
                 path: '/',
@@ -45,7 +44,7 @@ const router = createBrowserRouter([
             {
                 path: '/myPostedJobs/:email',
                 element: <PrivateRoute><MyPostedJobs></MyPostedJobs></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/jobs?email=${params.email}`)
+                loader: ({params}) => fetch(`http://localhost:5000/jobs?email=${params.email}`, {credentials: 'include'})
             },
             {
                 path: '/viewApplications/:jobId',

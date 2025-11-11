@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const MyApplication = () => {
     const myapplications = useLoaderData();
     const [newApplications, setNewApplications] = useState(myapplications);
-    console.log(myapplications);
+    // console.log(myapplications);
 
     /**
      * if we load data with axios instead of loader data we have to send creadentail as { withCredentails : true}

@@ -41,10 +41,9 @@ const SignInUser = () => {
                 }
                 ).then(res => console.log(res.data))
 
-            //    Asdfgh!23
                 form.reset();
                 setUser(loggeduser);
-                // navigate(from, {replace: true});
+                navigate(from, {replace: true});
                 toast("Logged in successful")
             })
             .catch(error => {
