@@ -1,11 +1,13 @@
 import axios from 'axios';
-import { useState } from 'react';
-import { useLoaderData } from 'react-router';
+import { useContext, useEffect, useState } from 'react';
+// import { useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../hooks/useAxiosSecure';
+import { AuthContext } from '../provider/AuthProvider';
 
 const MyApplication = () => {
-    const myapplications = useLoaderData();
-    const [newApplications, setNewApplications] = useState(myapplications);
+    // const myapplications = useLoaderData();
+    // const [newApplications, setNewApplications] = useState(myapplications);
     // console.log(myapplications);
 
     /**
@@ -14,6 +16,13 @@ const MyApplication = () => {
      * in fetch it we have to send credentail in this format {credentials: 'include'}
      *  
      * */
+    const {user} = useContext(AuthContext);
+    const axiosSecure = useAxiosSecure();
+    const [newApplications, setNewApplications] = useState([]);
+    useEffect(()=> {
+        axiosSecure.get(`/job-application?email=${user.email}`)
+            .then(res => setNewApplications(res.data))
+    }, [axiosSecure, user.email])
 
     const handleDelete = (_id) => {
 
@@ -33,7 +42,7 @@ const MyApplication = () => {
     }
     return (
         <div className='min-h-[70vh] p-5'>
-            <h1>Number of Application {myapplications.length}</h1>
+            <h1>Number of Application {newApplications.length}</h1>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
