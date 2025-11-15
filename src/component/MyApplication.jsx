@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 // import { useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
@@ -20,14 +20,19 @@ const MyApplication = () => {
     const axiosSecure = useAxiosSecure();
     const [newApplications, setNewApplications] = useState([]);
     useEffect(()=> {
+        if (!user?.email) return;
+
         axiosSecure.get(`/job-application?email=${user.email}`)
             .then(res => setNewApplications(res.data))
+
+        // axiosSecure.get(`/job-application?email=lotki@gmail.com`)
+        //     .then(res => setNewApplications(res.data))
     }, [axiosSecure, user.email])
 
     const handleDelete = (_id) => {
 
         console.log('Delete application with id:', _id);
-        axios.delete(`http://localhost:5000/job-application/${_id}`)
+        axiosSecure.delete(`/job-application/${_id}`)
             .then(response => {
                 console.log(response.data);
                 if (response.data.deletedCount > 0) {
