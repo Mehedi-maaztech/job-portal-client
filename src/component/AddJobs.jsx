@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../provider/AuthProvider";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddJobs = () => {
     const {user} = useContext(AuthContext);
@@ -10,6 +10,8 @@ const AddJobs = () => {
     const selectClasses = "w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500";
     const textareaClasses = "w-full border border-gray-300 rounded-md px-3 py-2 h-24 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500";
     const sectionTitleClasses = "text-2xl text-primary-content mt-6 mb-4";
+
+    const axiosSecure = useAxiosSecure();
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission logic here
@@ -42,7 +44,7 @@ const AddJobs = () => {
 
         console.log('Job Data Submitted:', jobData);
         // You can send jobData to your backend server here
-        axios.post('http://localhost:5000/jobs', jobData)
+        axiosSecure.post('https://job-portal-server-olive-mu.vercel.app/jobs', jobData)
             .then(response => {
                 console.log('Job added successfully:', response.data);
                 toast('Job added successfully');

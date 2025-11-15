@@ -4,7 +4,7 @@ import useAuth from './useAuth';
 import { useNavigate } from 'react-router';
 
 const axiosInstane = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://job-portal-server-olive-mu.vercel.app',
     withCredentials: true
 })
 const useAxiosSecure = () => {
@@ -29,6 +29,7 @@ const useAxiosSecure = () => {
             return Promise.reject(error);
         })
     }, [logoutUser, navigate])
+    
     return axiosInstane;
 };
 

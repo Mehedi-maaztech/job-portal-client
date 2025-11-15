@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const JobApply = () => {
     const id = useParams();
     const {user} = useContext(AuthContext);
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
     const handleJobApply = (e) => {
         e.preventDefault();
 
@@ -24,7 +25,7 @@ const JobApply = () => {
             resumeLink
         };
 
-        axios.post('http://localhost:5000/job-application', applicationData)
+        axiosSecure.post('https://job-portal-server-olive-mu.vercel.app/job-application', applicationData)
             .then(response => {
                 console.log('Application submitted successfully:', response.data);
                 toast('Application submitted successfully');

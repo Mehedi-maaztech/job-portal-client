@@ -25,17 +25,17 @@ const router = createBrowserRouter([
             {
                 path: '/jobs/:id',
                 element: <PrivateRoute><JobDetails></JobDetails></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/jobs/${params.id}`)
+                loader: ({params}) => fetch(`https://job-portal-server-olive-mu.vercel.app/jobs/${params.id}`)
             },
             {
                 path: '/jobApply/:id',
                 element: <PrivateRoute><JobApply></JobApply></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/jobs/jobApply/${params.id}`)
+                loader: ({params}) => fetch(`https://job-portal-server-olive-mu.vercel.app/jobs/jobApply/${params.id}`)
             },
             {
                 path: '/myApplications/:email',
                 element: <PrivateRoute><MyApplication></MyApplication></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/job-application?email=${params.email}`, {credentials: 'include'})
+                loader: ({params}) => fetch(`https://job-portal-server-olive-mu.vercel.app/job-application?email=${params.email}`, {credentials: 'include'})
             },
             {
                 path: '/addJobs',
@@ -44,12 +44,12 @@ const router = createBrowserRouter([
             {
                 path: '/myPostedJobs/:email',
                 element: <PrivateRoute><MyPostedJobs></MyPostedJobs></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/jobs?email=${params.email}`, {credentials: 'include'})
+                loader: ({params}) => fetch(`https://job-portal-server-olive-mu.vercel.app/jobs?email=${params.email}`, {credentials: 'include'})
             },
             {
                 path: '/viewApplications/:jobId',
                 element: <PrivateRoute><ViewApplications></ViewApplications></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/job-application?jobId=${params.jobId}`)
+                loader: ({params}) => fetch(`https://job-portal-server-olive-mu.vercel.app/job-application?jobId=${params.jobId}`)
             }
 
         ]

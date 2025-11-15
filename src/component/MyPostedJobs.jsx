@@ -1,17 +1,17 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const MyPostedJobs = () => {
     const myPostedJobs = useLoaderData();
     const [newJobs, setNewJobs] = useState(myPostedJobs);
     // console.log(newJobs);
-
+    const axiosSecure = useAxiosSecure();
     const handleDelete = (_id) => {
 
         console.log('Delete application with id:', _id);
-        axios.delete(`http://localhost:5000/job-application/${_id}`)
+        axiosSecure.delete(`https://job-portal-server-olive-mu.vercel.app/job-application/${_id}`)
             .then(response => {
                 console.log(response.data);
                 if (response.data.deletedCount > 0) {

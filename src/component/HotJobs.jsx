@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import HotJobCard from './HotJobCard';
-import axios from 'axios';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const HotJobs = () => {
     const [hotJobs, setHotJobs] = useState([]);
+    const axiosSecure = useAxiosSecure();
     useEffect(() => {
-        axios.get('http://localhost:5000/jobs', {withCredentials: true})
+        axiosSecure.get('https://job-portal-server-olive-mu.vercel.app/jobs', {withCredentials: true})
         .then(res => setHotJobs(res.data))
         .catch(err => console.error(err));
 
-        // fetch('http://localhost:5000/jobs',)
+        // fetch('https://job-portal-server-olive-mu.vercel.app/jobs',)
         //     .then(res => res.json())
         //     .then(data => setHotJobs(data))
         //     .catch(error => console.error('Error fetching hot jobs:', error));
-    }, []);
+    }, [axiosSecure]);
     // console.log(hotJobs);
     return (
         <div>

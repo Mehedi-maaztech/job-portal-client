@@ -31,7 +31,7 @@ const SignInUser = () => {
                 const loggeduser = result.user;
                 console.log(loggeduser);
 
-                axios.post('http://localhost:5000/jwt', {
+                axios.post('https://job-portal-server-olive-mu.vercel.app/jwt', {
                     email: loggeduser.email,
                     name: loggeduser.displayName,
                     role: 'user',

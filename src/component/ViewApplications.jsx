@@ -10,7 +10,7 @@ const ViewApplications = () => {
         console.log("Selected Status:", newStatus, id);
         // Here you can add logic to update the status in your backend or state
         const data = { status: newStatus };
-        axios.patch(`http://localhost:5000/job-application/${id}`, data)
+        axios.patch(`https://job-portal-server-olive-mu.vercel.app/job-application/${id}`, data)
             .then(response => {
                 console.log("Status updated successfully:", response.data);
                 // Optionally, you can refresh the data or update the state here
